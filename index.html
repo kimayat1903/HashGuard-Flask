@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HashGuard - verify file integrity using SHA-256 checksums.">
+  <title>HashGuard | File Integrity Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">H</span><span>Hash<span class="brand-light">Guard</span></span></a>
+    <span class="top-tag"><span class="live-dot"></span> SHA-256 INTEGRITY TOOL</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow"><span></span> FILE INTEGRITY VERIFICATION</div>
+      <h1>Trust your files.<br><span>Verify every byte.</span></h1>
+      <p class="hero-copy">Generate a secure SHA-256 fingerprint, register it, and verify later that your file has not changed.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="tabs" role="tablist" aria-label="HashGuard actions">
+        <button class="tab active" id="register-tab" role="tab" aria-selected="true" data-panel="register-panel"><span class="tab-icon">＋</span> Register file</button>
+        <button class="tab" id="verify-tab" role="tab" aria-selected="false" data-panel="verify-panel"><span class="tab-icon">✓</span> Verify file</button>
+      </div>
+
+      <section class="panel active" id="register-panel">
+        <div class="panel-heading"><div><h2>Register a reference</h2><p>Save the file's original SHA-256 fingerprint.</p></div><span class="step-pill">01 / REGISTER</span></div>
+        <form id="register-form">
+          <label class="dropzone" for="register-file" id="register-dropzone">
+            <input type="file" id="register-file" name="file" required>
+            <span class="upload-icon">↑</span>
+            <strong>Choose a file to register</strong>
+            <span class="drop-hint">or drag and drop it here</span>
+            <span class="file-limit">Maximum file size: 4 MB</span>
+            <span class="selected-file" id="register-selected">No file selected</span>
+          </label>
+          <button class="primary-button" type="submit">Generate &amp; register hash <span>→</span></button>
+        </form>
+        <div class="result hidden" id="register-result" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" id="verify-panel">
+        <div class="panel-heading"><div><h2>Verify file integrity</h2><p>Compare a file against its saved reference.</p></div><span class="step-pill">02 / VERIFY</span></div>
+        <form id="verify-form">
+          <label class="field-label" for="record-id">Registration reference ID</label>
+          <input class="text-input" id="record-id" name="record_id" placeholder="Paste the reference ID you saved" autocomplete="off" required>
+          <label class="dropzone verify-dropzone" for="verify-file" id="verify-dropzone">
+            <input type="file" id="verify-file" name="file" required>
+            <span class="upload-icon">↑</span>
+            <strong>Choose the file to verify</strong>
+            <span class="drop-hint">Select the file you want to compare</span>
+            <span class="file-limit">Maximum file size: 4 MB</span>
+            <span class="selected-file" id="verify-selected">No file selected</span>
+          </label>
+          <button class="primary-button" type="submit">Verify file <span>→</span></button>
+        </form>
+        <div class="result hidden" id="verify-result" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section class="how-section">
+      <div class="section-kicker">HOW IT WORKS</div>
+      <div class="how-grid">
+        <article><span class="how-number">01</span><h3>Generate</h3><p>Python calculates a SHA-256 fingerprint from the selected file.</p></article>
+        <article><span class="how-number">02</span><h3>Register</h3><p>The reference hash is saved securely in the connected database.</p></article>
+        <article><span class="how-number">03</span><h3>Verify</h3><p>A new hash is compared with the registered fingerprint.</p></article>
+      </div>
+    </section>
+    <footer><span>HashGuard <span class="footer-dot">•</span> File Integrity Verification</span><span>Built with Python · Flask · SHA-256</span></footer>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
