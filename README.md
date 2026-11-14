@@ -1,4 +1,4 @@
-# HashGuard — Flask + MongoDB Atlas + Vercel
+# HashGuard
 
 HashGuard calculates SHA-256 using Python's `hashlib`, saves reference metadata and digests in MongoDB Atlas, and verifies a later file against a saved reference.
 
